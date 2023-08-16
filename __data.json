@@ -1,1 +1,1 @@
-{"type":"data","nodes":[null,{"type":"data","data":[{"post":1},[2],{"title":3,"date":4,"slug":5},"Lost in the Middle: How Language Models Use Long Contexts","2023-08-16","lost-in-the-middle"],"uses":{}}]}
+{"type":"data","nodes":[null,{"type":"data","data":[{"post":1},[2,6],{"title":3,"date":4,"slug":5},"Lost in the Middle: How Language Models Use Long Contexts","2023-08-16","lost-in-the-middle",{"title":3,"date":4,"slug":5}],"uses":{}}]}
