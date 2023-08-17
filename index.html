@@ -10,9 +10,12 @@
 	<meta name="viewport" content="width=device-width" />
 	<script>
 		MathJax = {
+			// textmacros를 사용해야 textbf같은게 제대로 나옴.
+			// equation 번호도 이거로 해결되는 듯?
+			loader: { load: ['[tex]/textmacros'] },
 			tex: {
-				tags: 'all',
-				inlineMath: [['$', '$'], ['\\(', '\\)']]
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				packages: { '[+]': ['textmacros'] },
 			},
 		};
 	</script>
@@ -22,32 +25,32 @@
 	
 		<link href="./_app/immutable/assets/0.664a6356.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/2.bc158eca.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.31feaf95.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.bc0291de.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.e108d1fd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.48324544.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.d37c45da.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.8eaf8fb4.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.f6a9a794.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.38a092e6.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.b0ac7ccc.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.bd761eca.js">
 		<link rel="modulepreload" href="./_app/immutable/nodes/2.e25b045e.js">
 </head>
 
 <body data-sveltekit-preload-data="hover">
-	<div style="display: contents">  <div class="nav svelte-5baz1e" data-svelte-h="svelte-89nan6"><a href="/">Posts</a></div> <div class="post-list svelte-1y7wuor"><a class="post svelte-1y7wuor" href="/lost-in-the-middle-how-language-models-use-long-contexts"><h1 class="svelte-1y7wuor">Lost in the Middle: How Language Models Use Long Contexts</h1> <div class="date">2023-08-16</div> </a>  </div> 
+	<div style="display: contents">  <div class="nav svelte-5baz1e" data-svelte-h="svelte-89nan6"><a href="/">Posts</a></div> <div class="post-list svelte-1y7wuor"><a class="post svelte-1y7wuor" href="/solving-challenging-math-word-problems-using-gpt-4-code-interpreter-with-code-based-self-verification"><h1 class="svelte-1y7wuor">Solving Challenging Math Word Problems Using GPT-4 Code Interpreter with Code-based Self-Verification</h1> <div class="date">2023-08-17</div> </a><a class="post svelte-1y7wuor" href="/lost-in-the-middle-how-language-models-use-long-contexts"><h1 class="svelte-1y7wuor">Lost in the Middle: How Language Models Use Long Contexts</h1> <div class="date">2023-08-16</div> </a>  </div> 
 			
 			<script>
 				{
-					__sveltekit_1lvqlkg = {
+					__sveltekit_mqifi2 = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
 
 					const element = document.currentScript.parentElement;
 
-					const data = [null,{"type":"data","data":{post:[{title:"Lost in the Middle: How Language Models Use Long Contexts",date:"2023-08-16",slug:"lost-in-the-middle-how-language-models-use-long-contexts"}]},"uses":{}}];
+					const data = [null,{"type":"data","data":{post:[{title:"Solving Challenging Math Word Problems Using GPT-4 Code Interpreter with Code-based Self-Verification",date:"2023-08-17",slug:"solving-challenging-math-word-problems-using-gpt-4-code-interpreter-with-code-based-self-verification"},{title:"Lost in the Middle: How Language Models Use Long Contexts",date:"2023-08-16",slug:"lost-in-the-middle-how-language-models-use-long-contexts"}]},"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.31feaf95.js"),
-						import("./_app/immutable/entry/app.d37c45da.js")
+						import("./_app/immutable/entry/start.bc0291de.js"),
+						import("./_app/immutable/entry/app.f6a9a794.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
