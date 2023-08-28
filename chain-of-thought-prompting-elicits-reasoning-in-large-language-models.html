@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+	<link rel="manifest" href="./favicon/site.webmanifest">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script>
+		MathJax = {
+			loader: { load: ['[tex]/textmacros'] },
+			tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				packages: { '[+]': ['textmacros'] },
+			},
+		};
+	</script>
+	<script type="text/javascript" id="MathJax-script" async
+		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.min.js">
+		</script>
+	
+		<link href="./_app/immutable/assets/0.664a6356.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/3.15287e86.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.70270bc1.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.e108d1fd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.d864eadd.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.6325bc68.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.38a092e6.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.7ff9138c.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.31ffc94c.js"><title>First Read - Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</title><!-- HEAD_svelte-xvm09b_START --><!-- HEAD_svelte-xvm09b_END -->
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">  <div class="nav svelte-5baz1e" data-svelte-h="svelte-89nan6"><a href="/">Posts</a></div>  <div class="content svelte-lwo4ch"><div class="title svelte-lwo4ch" data-svelte-h="svelte-oyb924"><h1 class="svelte-lwo4ch">First Read</h1> <h2 class="svelte-lwo4ch">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</h2> <div class="date svelte-lwo4ch">2023-08-29</div></div> <!-- HTML_TAG_START --><html><body><h2 id="overview">Overview</h2>
+<p>Language model의 scale을 키우는 것은 여러 방면으로 성능 향상에 도움이
+된다. 그러나 arithmetic, commonsense, symbolic reasoning같은 작업에선
+scale을 키우는것 단독으론 충분하지 않다.</p>
+<p><a href="#ref-wei2023chainofthought">[1]</a>은
+Chain-of-Thought라는 기법을 제안한다. 이 기법은 prompt를 통해 language
+model의 reasoning 성능을 향상시킨다.</p>
+<h2 id="chain-of-thought-prompting">Chain-of-Thought Prompting</h2>
+<figure id="fig:pull-figure">
+<img src="figures/chain-of-thought-prompting-elicits-reasoning-in-large-language-models/new-pull-figure-landscape.jpg" style="width:100.0%"/>
+<figcaption>Figure 1: Chain-of-thought prompting enables large language
+models to tackle complex arithmetic, commonsense, and symbolic reasoning
+tasks. Chain-of-thought reasoning processes are highlighted. (Source:
+Fig. 1 in <a href="#ref-wei2023chainofthought">[1]</a>)
+</figcaption>
+</figure>
+<p>Chain of Thought는 다음 두가지 아이디어에 기반한다.</p>
+<ol>
+<li><p>정답에 대한 근거가 주어지면 reasoning 작업을 수행하는데 도움이
+된다.</p></li>
+<li><p>LLM은 prompting을 통해 in-context few-shot learning을 수행할 수
+있다.</p></li>
+</ol>
+<p>이 아이디어를 통합한것이 chain of thought로, Fig. <a data-reference="fig:pull-figure" data-reference-type="ref" href="#fig:pull-figure">1</a>에서 볼 수 있듯이 최종 결과를
+내기전 reasoning step을 밟아갈 수 있도록 prompt를 구성한다.</p>
+<p>Chain of Thought의 장점은 다음과 같다.</p>
+<ol>
+<li><p>문제를 여러 step을 거쳐나가며 풀도록 함으로써 computation을 더
+사용할 수 있다.</p></li>
+<li><p>정답에 도달한 과정을 볼 수 있으며 이를 통해 reasoning의 어떤 점이
+틀렸는지 debugging이 가능하다.</p></li>
+<li><p>Arithmetic, commmonsense, symbolic reasoning 등 사람이 언어적으로
+해결할 수 있는 모든 문제에 적용 가능하다.</p></li>
+<li><p>단지 적절한 크기의 LLM에 prompting을 하는것만으로 적용이
+가능하다.</p></li>
+</ol>
+<p><a href="#ref-wei2023chainofthought">[1]</a>은
+chain of thought를 적용하여 arithmetic, commonsense, symbolic reasoning
+3가지에 대한 실험을 수행하였고 그 결과를 담았다.</p>
+<h2 id="arithmetic-reasoning">Arithmetic Reasoning</h2>
+<h3 id="experimental-setup">Experimental Setup</h3>
+<p>실험 환경은 다음과 같다.</p>
+<ol>
+<li><p><strong>Benchmarks</strong>: GSM8K, SVAMP, ASDiv, AQuA, MAWPS
+다섯가지이다.</p></li>
+<li><p><strong>Standard prompting</strong>: Baseline으로 standard
+few-shot prompting을 사용한다. 이는 Fig. <a data-reference="fig:pull-figure" data-reference-type="ref" href="#fig:pull-figure">1</a>의
+왼쪽과 같이 example을 제공하되 reasoning이 아닌 정답만 바로 제공하는
+식의 prompting이다.</p></li>
+<li><p><strong>Chain-of-thought prompting</strong>: Fig. <a data-reference="fig:pull-figure" data-reference-type="ref" href="#fig:pull-figure">1</a>의 오른쪽과 같이 reasoning step을
+거쳐가며 정답을 찾도록 prompting을 구성한다.</p></li>
+<li><p><strong>Language models</strong>: GPT-3, LaMDA, PaLM, UL2 20B,
+Codex 다섯가지이다.</p></li>
+</ol>
+<h3 id="results">Results</h3>
+<p>주요 결과는 다음과 같다.</p>
+<ol>
+<li><p>Chain-of-thought는 small model에선 효과적이지 않았으며 큰
+모델에서만 효과가 있었다.</p></li>
+<li><p>Chain-of-thought는 GSM8K같이 복잡한 문제일수록 더 효과적이었다.
+MAWPS같이 single step으로 풀 수 있는 문제에서는 이득이 없었다.</p></li>
+<li><p>Chain-of-thought의 성능은 이전까지의 SoTA를 뛰어넘을 정도로
+좋았다.</p></li>
+<li><p>LLM의 scale을 키우는것은 chain-of-thought를 쓸때 one-step
+missing이나 semantic understanding error같은 에러를 내는것을 크게
+줄여준다. 이는 Scaling이 왜 효과적인지를 어느정도 설명해준다.</p></li>
+</ol>
+<h3 id="ablation-study">Ablation Study</h3>
+<p>이런 성능향상이 다른것에서 기인하는것은 아닌지 확인하기 위해 ablation
+study를 수행하였다.</p>
+<ol>
+<li><p><strong>Equation only</strong>: Chain-of-thought가 equation을
+제공하는것에 의해 성능이 향상되는것은 아닌지 확인하기 위해 equation만
+제공하는 prompt를 구성하였다. GSM8K같은 복잡한 문제에선 성능향상이
+없었지만 one-step problem에선 어느정도 성능이 향상되었다.</p></li>
+<li><p><strong>Variable compute only</strong>: Computation을 더 많이
+해서 그런것은 아닌지 확인하기위해 dots(...)로 구성된 sequence를 문제를
+풀기위한 equation과 같은 길이만큼 주었다. 이때의 성능은 baseline과 같아
+성능향상이 없는것을 확인할 수 있었다.</p></li>
+<li><p><strong>Chain of thought after answer</strong>: 혹시 모델이
+단순히 제공된 prompt로 인해 더 연관된 정보를 잘 찾았던 것은 아닌지
+확인하기 위해 순서를 바꿔 chain of thought를 정답 이후에 주었다. 이 역시
+baseline과 같은 성능을 보여 reasoning의 순서가 중요함을
+보여주었다.</p></li>
+</ol>
+<h3 id="robustness-of-chain-of-thought">Robustness of Chain of
+Thought</h3>
+<p>Chain of thought가 prompt에 얼마나 sensitive한지 확인하기위한 실험을
+수행하였다. 여러사람이 각각 chain of thought를 쓰게하고 그 결과를 확인한
+결과, prompt에 따라 어느정도 성능의 차이는 있지만 전부 standard
+baseline보다 크게 높은 성능을 보여주었다. 즉, annotator에 대해
+robust하다는 것을 보여주었다. Exemplars, language models 등의 실험에
+대해서도 마찬가지로 robust함을 보여주었다.</p>
+<h2 id="commonsense-reasoning">Commonsense Reasoning</h2>
+<p>Arithmetic에서와 비슷한 경향을 보여주었다</p>
+<h2 id="symbolic-reasoning">Symbolic Reasoning</h2>
+<p>역시 비슷한 경향을 보여주었다. 추가로, few-shot exemplar에서 본것보다
+긴 input에 대해서도 inference-time에서 generalization이 가능하다는것을
+보여주었다.</p>
+<h2 id="quick-recap">Quick Recap</h2>
+<ol>
+<li><p>Chain-of-thought는 reasoning step을 거쳐가도록 prompting하는
+방식이다.</p></li>
+<li><p>Chain-of-thought는 단순 few-shot prompting보다 성능이
+좋다.</p></li>
+<li><p>Chain-of-thought는 single-step 문제 등 간단한 문제에선 효과가
+없을 수 있다.</p></li>
+<li><p>Chain-of-thought는 작은 모델에선 효과가 없을 수 있으며 scale이
+커질수록 효과가 있다.</p></li>
+</ol>
+<div class="references csl-bib-body hanging-indent" id="refs" role="list" style="margin-bottom: 2rem"><h2 style="margin-top: 4rem">References</h2>
+<div class="csl-entry" id="ref-wei2023chainofthought" role="listitem">[1] 
+Wei, Jason, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter,
+Fei Xia, Ed Chi, Quoc Le, and Denny Zhou. 2023. <span>“<a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting
+Elicits Reasoning in Large Language Models</a>.”</span>
+</div>
+</div>
+</body></html><!-- HTML_TAG_END --> </div> 
+			
+			<script>
+				{
+					__sveltekit_q3cyzh = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,{"type":"data","data":{content:"\u003Chtml>\u003Cbody>\u003Ch2 id=\"overview\">Overview\u003C/h2>\n\u003Cp>Language model의 scale을 키우는 것은 여러 방면으로 성능 향상에 도움이\n된다. 그러나 arithmetic, commonsense, symbolic reasoning같은 작업에선\nscale을 키우는것 단독으론 충분하지 않다.\u003C/p>\n\u003Cp>\u003Ca href=\"#ref-wei2023chainofthought\">[1]\u003C/a>은\nChain-of-Thought라는 기법을 제안한다. 이 기법은 prompt를 통해 language\nmodel의 reasoning 성능을 향상시킨다.\u003C/p>\n\u003Ch2 id=\"chain-of-thought-prompting\">Chain-of-Thought Prompting\u003C/h2>\n\u003Cfigure id=\"fig:pull-figure\">\n\u003Cimg src=\"figures/chain-of-thought-prompting-elicits-reasoning-in-large-language-models/new-pull-figure-landscape.jpg\" style=\"width:100.0%\"/>\n\u003Cfigcaption>Figure 1: Chain-of-thought prompting enables large language\nmodels to tackle complex arithmetic, commonsense, and symbolic reasoning\ntasks. Chain-of-thought reasoning processes are highlighted. (Source:\nFig. 1 in \u003Ca href=\"#ref-wei2023chainofthought\">[1]\u003C/a>)\n\u003C/figcaption>\n\u003C/figure>\n\u003Cp>Chain of Thought는 다음 두가지 아이디어에 기반한다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>정답에 대한 근거가 주어지면 reasoning 작업을 수행하는데 도움이\n된다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>LLM은 prompting을 통해 in-context few-shot learning을 수행할 수\n있다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Cp>이 아이디어를 통합한것이 chain of thought로, Fig. \u003Ca data-reference=\"fig:pull-figure\" data-reference-type=\"ref\" href=\"#fig:pull-figure\">1\u003C/a>에서 볼 수 있듯이 최종 결과를\n내기전 reasoning step을 밟아갈 수 있도록 prompt를 구성한다.\u003C/p>\n\u003Cp>Chain of Thought의 장점은 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>문제를 여러 step을 거쳐나가며 풀도록 함으로써 computation을 더\n사용할 수 있다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>정답에 도달한 과정을 볼 수 있으며 이를 통해 reasoning의 어떤 점이\n틀렸는지 debugging이 가능하다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Arithmetic, commmonsense, symbolic reasoning 등 사람이 언어적으로\n해결할 수 있는 모든 문제에 적용 가능하다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>단지 적절한 크기의 LLM에 prompting을 하는것만으로 적용이\n가능하다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Cp>\u003Ca href=\"#ref-wei2023chainofthought\">[1]\u003C/a>은\nchain of thought를 적용하여 arithmetic, commonsense, symbolic reasoning\n3가지에 대한 실험을 수행하였고 그 결과를 담았다.\u003C/p>\n\u003Ch2 id=\"arithmetic-reasoning\">Arithmetic Reasoning\u003C/h2>\n\u003Ch3 id=\"experimental-setup\">Experimental Setup\u003C/h3>\n\u003Cp>실험 환경은 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>\u003Cstrong>Benchmarks\u003C/strong>: GSM8K, SVAMP, ASDiv, AQuA, MAWPS\n다섯가지이다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Standard prompting\u003C/strong>: Baseline으로 standard\nfew-shot prompting을 사용한다. 이는 Fig. \u003Ca data-reference=\"fig:pull-figure\" data-reference-type=\"ref\" href=\"#fig:pull-figure\">1\u003C/a>의\n왼쪽과 같이 example을 제공하되 reasoning이 아닌 정답만 바로 제공하는\n식의 prompting이다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Chain-of-thought prompting\u003C/strong>: Fig. \u003Ca data-reference=\"fig:pull-figure\" data-reference-type=\"ref\" href=\"#fig:pull-figure\">1\u003C/a>의 오른쪽과 같이 reasoning step을\n거쳐가며 정답을 찾도록 prompting을 구성한다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Language models\u003C/strong>: GPT-3, LaMDA, PaLM, UL2 20B,\nCodex 다섯가지이다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch3 id=\"results\">Results\u003C/h3>\n\u003Cp>주요 결과는 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>Chain-of-thought는 small model에선 효과적이지 않았으며 큰\n모델에서만 효과가 있었다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Chain-of-thought는 GSM8K같이 복잡한 문제일수록 더 효과적이었다.\nMAWPS같이 single step으로 풀 수 있는 문제에서는 이득이 없었다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Chain-of-thought의 성능은 이전까지의 SoTA를 뛰어넘을 정도로\n좋았다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>LLM의 scale을 키우는것은 chain-of-thought를 쓸때 one-step\nmissing이나 semantic understanding error같은 에러를 내는것을 크게\n줄여준다. 이는 Scaling이 왜 효과적인지를 어느정도 설명해준다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch3 id=\"ablation-study\">Ablation Study\u003C/h3>\n\u003Cp>이런 성능향상이 다른것에서 기인하는것은 아닌지 확인하기 위해 ablation\nstudy를 수행하였다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>\u003Cstrong>Equation only\u003C/strong>: Chain-of-thought가 equation을\n제공하는것에 의해 성능이 향상되는것은 아닌지 확인하기 위해 equation만\n제공하는 prompt를 구성하였다. GSM8K같은 복잡한 문제에선 성능향상이\n없었지만 one-step problem에선 어느정도 성능이 향상되었다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Variable compute only\u003C/strong>: Computation을 더 많이\n해서 그런것은 아닌지 확인하기위해 dots(...)로 구성된 sequence를 문제를\n풀기위한 equation과 같은 길이만큼 주었다. 이때의 성능은 baseline과 같아\n성능향상이 없는것을 확인할 수 있었다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Chain of thought after answer\u003C/strong>: 혹시 모델이\n단순히 제공된 prompt로 인해 더 연관된 정보를 잘 찾았던 것은 아닌지\n확인하기 위해 순서를 바꿔 chain of thought를 정답 이후에 주었다. 이 역시\nbaseline과 같은 성능을 보여 reasoning의 순서가 중요함을\n보여주었다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch3 id=\"robustness-of-chain-of-thought\">Robustness of Chain of\nThought\u003C/h3>\n\u003Cp>Chain of thought가 prompt에 얼마나 sensitive한지 확인하기위한 실험을\n수행하였다. 여러사람이 각각 chain of thought를 쓰게하고 그 결과를 확인한\n결과, prompt에 따라 어느정도 성능의 차이는 있지만 전부 standard\nbaseline보다 크게 높은 성능을 보여주었다. 즉, annotator에 대해\nrobust하다는 것을 보여주었다. Exemplars, language models 등의 실험에\n대해서도 마찬가지로 robust함을 보여주었다.\u003C/p>\n\u003Ch2 id=\"commonsense-reasoning\">Commonsense Reasoning\u003C/h2>\n\u003Cp>Arithmetic에서와 비슷한 경향을 보여주었다\u003C/p>\n\u003Ch2 id=\"symbolic-reasoning\">Symbolic Reasoning\u003C/h2>\n\u003Cp>역시 비슷한 경향을 보여주었다. 추가로, few-shot exemplar에서 본것보다\n긴 input에 대해서도 inference-time에서 generalization이 가능하다는것을\n보여주었다.\u003C/p>\n\u003Ch2 id=\"quick-recap\">Quick Recap\u003C/h2>\n\u003Col>\n\u003Cli>\u003Cp>Chain-of-thought는 reasoning step을 거쳐가도록 prompting하는\n방식이다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Chain-of-thought는 단순 few-shot prompting보다 성능이\n좋다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Chain-of-thought는 single-step 문제 등 간단한 문제에선 효과가\n없을 수 있다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>Chain-of-thought는 작은 모델에선 효과가 없을 수 있으며 scale이\n커질수록 효과가 있다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Cdiv class=\"references csl-bib-body hanging-indent\" id=\"refs\" role=\"list\" style=\"margin-bottom: 2rem\">\u003Ch2 style=\"margin-top: 4rem\">References\u003C/h2>\n\u003Cdiv class=\"csl-entry\" id=\"ref-wei2023chainofthought\" role=\"listitem\">[1] \nWei, Jason, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter,\nFei Xia, Ed Chi, Quoc Le, and Denny Zhou. 2023. \u003Cspan>“\u003Ca href=\"https://arxiv.org/abs/2201.11903\">Chain-of-Thought Prompting\nElicits Reasoning in Large Language Models\u003C/a>.”\u003C/span>\n\u003C/div>\n\u003C/div>\n\u003C/body>\u003C/html>"},"uses":{}}];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.70270bc1.js"),
+						import("./_app/immutable/entry/app.6325bc68.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+</body>
+
+</html>
