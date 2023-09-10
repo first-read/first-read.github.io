@@ -23,13 +23,13 @@
 	
 		<link href="./_app/immutable/assets/0.08c9bd5d.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/3.15287e86.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.c64402c8.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.2e2efa9d.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.e108d1fd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.6898e7bd.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.8c09aa58.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.af9ca940.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.652aceda.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.38a092e6.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.cefdd44a.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/6.d7ad9c01.js"><title>First Read - GPT-4 Is Too Smart To Be Safe: Stealthy Chat with LLMs via Cipher</title><!-- HEAD_svelte-10328mi_START --><!-- HEAD_svelte-10328mi_END -->
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.4f289655.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/7.d7ad9c01.js"><title>First Read - GPT-4 Is Too Smart To Be Safe: Stealthy Chat with LLMs via Cipher</title><!-- HEAD_svelte-10328mi_START --><!-- HEAD_svelte-10328mi_END -->
 </head>
 
 <body data-sveltekit-preload-data="hover">
@@ -149,7 +149,7 @@ Stealthy Chat with LLMs via Cipher</a>.”</span>
 			
 			<script>
 				{
-					__sveltekit_1a01rcl = {
+					__sveltekit_1qe86vr = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -159,11 +159,11 @@ Stealthy Chat with LLMs via Cipher</a>.”</span>
 					const data = [null,{"type":"data","data":{content:"\u003Chtml>\u003Cbody>\u003Ch2 id=\"overview\">Overview\u003C/h2>\n\u003Cp>최근 LLM이 뛰어난 성능을 보여주며 이를 악용하려는 시도 역시 늘어나고\n있다. 이런 악용을 막기위해 safety alignment에 대한 여러 작업들이\n수행되어왔지만, 주로 input과 output이 \u003Cstrong>natural\nlanguage\u003C/strong>인 경우에 국한되어 왔다. \u003Ca href=\"#ref-yuan2023gpt4\">[1]\u003C/a>은 \u003Cstrong>non-natural\nlanguage\u003C/strong>(cipher)를 이용해 이런 safety alignment를 우회할 수\n있는지 알아본 논문이다.\u003C/p>\n\u003Ch2 id=\"methodology-cipherchat\">Methodology: CipherChat\u003C/h2>\n\u003Cfigure id=\"overview\">\n\u003Cimg src=\"figures/gpt-4-is-too-smart-to-be-safe-stealthy-chat-with-llms-via-cipher/Overview.jpg\" style=\"width:100.0%\"/>\n\u003Cfigcaption>Overview of CipherChat. There are three steps: system prompt\nconstruction, enciphering the input instruction, and deciphering the\nresponses of LLM. The key idea aims to prevent the LLM from interacting\nwith any natural language, only allowing it to handle cipher inputs and\ngenerate cipher outputs, thus circumventing the safety alignment. (Image\nsource: Fig. 2 in \u003Ca href=\"#ref-yuan2023gpt4\">[1]\u003C/a>)\u003C/figcaption>\n\u003C/figure>\n\u003Cp>\u003Ca href=\"#ref-yuan2023gpt4\">[1]\u003C/a>에선\n\u003Cstrong>CipherChat\u003C/strong>이라는 방법을 소개하였다(Fig. \u003Ca data-reference=\"overview\" data-reference-type=\"ref\" href=\"#overview\">1\u003C/a>). 이 방법은 LLM과 cipher(암호)로\n소통하여 기존의 natural language를 쓸 때의 safety alignment를 우회하는\n방법이다. 암호화는 여러 방법들을 이용할 수 있다. 그 예로는 아스키코드\n변환, 모스부호, 카이사르 암호 등이 있다. 이 논문에서는 이에 더해\n\u003Cstrong>SelfCipher\u003C/strong>라는 방법도 제시하였다. 이는 LLM 자체적으로\n내적인 암호화 방법이 있을거라는 가정에서 출발한 방법으로, input과\noutput모두 평범하게 주지만 LLM이 이를 처리할 때는 cipher를 이용하라고\ninstruction을 주는 방법이다.\u003C/p>\n\u003Cp>CipherChat의 구체적인 과정은 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>\u003Cstrong>Construct System Prompt\u003C/strong>: System prompt를 이용해\nLLM에게 cipher에 대한 지식을 제공하고 role을 부여한다\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>\u003Cstrong>Behaviour Assigning\u003C/strong>: Prompt로 LLM에게 role을\n부여한다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Cipher Teaching\u003C/strong>: Prompt로 cipher에 대한 설명을\n제공한다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Enciphered Unsafe Demonstration\u003C/strong>: Prompt로\ncipher에 대한 예시를 제공한다. 이때, 예시는 unsafe한 예시여야 한다. 이는\nsafety alignment를 더 효과적으로 우회하게 도와준다.\u003C/p>\u003C/li>\n\u003C/ol>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Encipher The Input Instruction\u003C/strong>: LLM에 넣을\ninput을 Encipher로 암호화한다. 이때, SelfCipher의 경우 별도의 암호화는\n필요없다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Decipher The Response of LLM\u003C/strong>: LLM의 output을\nDecipher로 복호화한다. rule-based decrypter를 써서 하면 되는데, output이\nwrong token을 내뱉는 경우(rule을 어길 경우)가 있다. 이는 output을 LLM\n스스로 복호화하게 시켜 해결가능한데 이 논문에선 비용적인 문제로\nrule-based decrypter를 사용하였다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch2 id=\"experiment\">Experiment\u003C/h2>\n\u003Cp>언어모델은 GPT-3.5-turbo-0613과 GPT-4-0613을 사용하였으며 Chinese\nsafety assessment dataset을 이용하였다. 이 dataset은 영어를 썻을때의\n평가를 위해 영어로 확장하여 사용하였다.\u003C/p>\n\u003Cp>이 실험을 통해 알아보려는것은 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>LLM과 cipher를 이용한 소통이 가능한가?\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>CipherChat을 이용해 safety alignment를 우회할 수 있는가?\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>CipherChat은 어떻게 동작이 가능한가?\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch3 id=\"effective-validity-rate-of-gpt-4-responses-via-cipher\">Effective\nValidity Rate of GPT-4 Responses via Cipher\u003C/h3>\n\u003Cp>Output은 natural하고 query에 대해 relevant할때 valid라고\n평가하였다.\u003C/p>\n\u003Cp>평가 결과, GPT-4가 GPT-3.5보다 더 높은 validity score를 보였으며,\n영어가 중국어보다 더 높은 valid rate를 보였다(ASCII 등). GPT-4는 여러\ncipher에서 높은 validity score를 보여주었으며, 이는 GPT-4가 cipher를\n이용한 소통을 잘 할 수 있다는 것을 보여준다.\u003C/p>\n\u003Ch3 id=\"cipher-enables-evasion-of-safety-alignment\">Cipher Enables\nEvasion of Safety Alignment\u003C/h3>\n\u003Cp>실험결과, GPT-4가 GPT-3.5보다 더 높은 safety alignment 우회율을\n보였다. 이는 모델의 성능이 좋으면 좋을수록 cipher를 통한 응답은 더\nunsafe해짐을 보여준다. Cipher 방법에 따른 unsafety Rate는 순서대로\nSelfCipher, Unicode, Vanilla 순으로 높았다. 즉, 실제적으로 cipher를\n이용한다면 높은 수준으로 safety alignment를 우회할 수 있다는 것을\n보여준다.\u003C/p>\n\u003Ch3 id=\"analysis\">Analysis\u003C/h3>\n\u003Cp>CipherChat의 동작을 더 잘 이해하기 위해 한 분석은 다음과 같다.\u003C/p>\n\u003Col>\n\u003Cli>\u003Cp>\u003Cstrong>Impact of SystemRole\u003C/strong>: System role을 제거하였을\n경우 unsafety rate이 확연히 내려가는 것을 확인하였다. 특히 GPT-3.5보다\nGPT-4에서, 또 SelfCipher에서 그 역할이 더 컸다. 이는 System role이\n우회율에 큰 영향을 미친다는 것을 보여준다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Impact of Unsafe Demonstrations\u003C/strong>: Unsafe 예시들을\nsafe한 예시들로 바꾸는 것도 성능을 하락시켰다. GPT-4 모델 같은 경우\nUnsafe한 데모를 더 많이 제공할수록 더 높은 unsafety rate을 보였다.\n하지만 GPT-3.5의 경우 이 경향은 보이지 않았다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Impact of Fundamental Model\u003C/strong>: CipherChat을 다른\n언어모델에도 적용해본 결과, SelfCipher가 아닌 다른 cipher의 경우\nCommunication이 실패하는 경향이 있었다. 이는 모델이 human cipher에 대해\n이해할 정도로 강력한 성능이 필요함을 보여준다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Why Does SelfCipher Work\u003C/strong>: SelfCipher가 효과적인\n이유로 저자들은 LLM이 자체적으로 그들만의 cipher를 가지고 있을것이라고\n주장하였다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>\u003Cstrong>Simulated Ciphers that Never Occur in Pretraining Data\nCannot Work\u003C/strong>: 학습때 쓰이지 않은 cipher로 대체시 demonstration을\n많이 줘도 잘 동작하지 않았다. 이는 LLM이 학습때 사용된 cipher에\n의존한다는 것을 보여준다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Ch2 id=\"quick-recap\">Quick Recap\u003C/h2>\n\u003Col>\n\u003Cli>\u003Cp>Natural language에 대해 이뤄진 safety alignment는 non-natural\nlanguage(cipher)를 이용해 우회가능하다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>이런 우회방법은 LLM이 강력할수록 더 효과적이다.\u003C/p>\u003C/li>\n\u003Cli>\u003Cp>언어모델들은 자체적으로 암호화 방법을 가지고 있는듯\n보인다.\u003C/p>\u003C/li>\n\u003C/ol>\n\u003Cdiv class=\"references csl-bib-body hanging-indent\" id=\"refs\" role=\"list\" style=\"margin-bottom: 2rem\">\u003Ch2 style=\"margin-top: 4rem\">References\u003C/h2>\n\u003Cdiv class=\"csl-entry\" id=\"ref-yuan2023gpt4\" role=\"listitem\">[1] \nYuan, Youliang, Wenxiang Jiao, Wenxuan Wang, Jen-tse Huang, Pinjia He,\nShuming Shi, and Zhaopeng Tu. 2023. \u003Cspan>“\u003Ca href=\"https://arxiv.org/abs/2308.06463\">GPT-4 Is Too Smart to Be Safe:\nStealthy Chat with LLMs via Cipher\u003C/a>.”\u003C/span>\n\u003C/div>\n\u003C/div>\n\u003C/body>\u003C/html>"},"uses":{}}];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.c64402c8.js"),
-						import("./_app/immutable/entry/app.8c09aa58.js")
+						import("./_app/immutable/entry/start.2e2efa9d.js"),
+						import("./_app/immutable/entry/app.652aceda.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
-							node_ids: [0, 6],
+							node_ids: [0, 7],
 							data,
 							form: null,
 							error: null
